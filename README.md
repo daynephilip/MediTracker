@@ -16,7 +16,7 @@ A complete, mobile-responsive web application for medication safety, built with 
 
 | Component | Technology |
 | --------- | ---------- |
-| LLM | Qwen 3.5-9B via Groq Cloud API (free tier) |
+| LLM | Qwen 3.5-9B via Groq Cloud API (free tier) | Meta Llama 4 Scout 17B 16E Instruct (via Groq) — for image-based medication identification |
 | Image OCR | OCR.space Cloud API (free tier, 25k req/month) |
 | Backend | FastAPI + LangGraph |
 | Frontend | React + Vite |
@@ -63,3 +63,37 @@ A complete, mobile-responsive web application for medication safety, built with 
 3. **Low-Confidence LLM Outputs**: LangGraph handles errors and returns a generic fallback response with the medical disclaimer.
 4. **Auth Token Expiration**: `auth.py` rejects invalid tokens; frontend needs to prompt re-login.
 5. **Map Errors**: If geolocation is denied, a clear error message is shown with instructions.
+
+##GUARDRAILS & SAFETY
+
+  Input Sanitization (guardrails.py):
+    - Strips <script> tags (XSS prevention)
+    - Removes "ignore previous" phrases (prompt injection defense)
+    - Removes "system:" prefixes (prompt injection defense)
+    - All inputs are trimmed of whitespace
+
+  Output Safety:
+    - Every AI response has an automatic medical disclaimer appended:
+      "This is for educational purposes only. Always consult a licensed
+       pharmacist or physician before starting, stopping, or changing
+       medications."
+    - Disclaimer is only added once (deduplication check)
+
+  Structured Output Validation:
+    - Pydantic models validate AI outputs:
+      * InteractionResult: validates drug interaction responses
+        (has_interaction, severity, explanation, supported_by_context)
+      * ParsedMedication: validates OCR parsing results
+        (name, dosage)
+        
+## Future Enhancements
+
+  - Push notifications via WebSocket or Firebase Cloud Messaging (FCM)
+  - Vector embedding-based RAG (replace keyword matching)
+  - Full Firebase Authentication flow (login/register UI)
+  - Medication adherence tracking and analytics
+  - Multi-user household support
+  - Drug interaction severity visualization
+  - Export health records as PDF
+  - PWA installation (manifest already exists)
+  - Intake log tracking (database table already exists)
