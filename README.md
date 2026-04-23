@@ -12,18 +12,6 @@ A complete, mobile-responsive web application for medication safety, built with 
 - **Storage**: SQLite with strict `user_id` isolation.
 - **Reminders**: APScheduler background thread.
 
-## Rubric Alignment Map
-
-| Rubric Requirement | File Implemented | Details |
-| ------------------ | ---------------- | ------- |
-| 1. Base + Auth | `auth.py`, `app.py` | Firebase Admin SDK verification in FastAPI `Depends()`. |
-| 2. RAG/Vectorstore | `rag_pipeline.py` | Lightweight keyword-matching RAG with in-memory store. |
-| 3. Guardrails | `guardrails.py` | Pydantic `InteractionResult` schema + Regex injection strip + Disclaimer appended. |
-| 4. LangGraph | `agents.py` | 3 nodes: `InputParser` -> `InteractionChecker` -> `ResponseFormatter`. |
-| 5. Memory/Tracking | `memory.py` | SQLite schema with strict `user_id` isolation for all tables. |
-| 6. Multimodal | `multimodal.py` | OCR.space cloud OCR + Qwen (Groq) structured parsing. |
-| 7. Deployment | `Dockerfile`, `scheduler.py` | Multi-stage Docker build, APScheduler background job. |
-
 ## Tech Stack
 
 | Component | Technology |
