@@ -78,7 +78,7 @@ function App() {
 
   const fetchMeds = async () => {
     try {
-      const res = await fetch('http://localhost:8000/api/medications', {
+      const res = await fetch('/api/medications', {
         headers: { 'Authorization': 'Bearer test_user_123' }
       });
       const data = await res.json();
@@ -88,7 +88,7 @@ function App() {
 
   const fetchProfile = async () => {
     try {
-      const res = await fetch('http://localhost:8000/api/profile', { headers: { 'Authorization': 'Bearer test_user_123' } });
+      const res = await fetch('/api/profile', { headers: { 'Authorization': 'Bearer test_user_123' } });
       const data = await res.json();
       setProfile(data);
       setProfileForm(data);
@@ -100,7 +100,7 @@ function App() {
   const handleSaveProfile = async () => {
     setProfileLoading(true);
     try {
-      await fetch('http://localhost:8000/api/profile', {
+      await fetch('/api/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer test_user_123' },
         body: JSON.stringify(profileForm)
@@ -175,12 +175,12 @@ function App() {
         const formData = new FormData();
         formData.append('file', imgFile);
         formData.append('message', msgText);
-        const res = await fetch('http://localhost:8000/api/chat/image', {
+        const res = await fetch('/api/chat/image', {
           method: 'POST', headers: { 'Authorization': 'Bearer test_user_123' }, body: formData
         });
         data = await res.json();
       } else {
-        const res = await fetch('http://localhost:8000/api/chat', {
+        const res = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer test_user_123' },
           body: JSON.stringify({ message: msgText })
@@ -196,13 +196,13 @@ function App() {
     e.preventDefault();
     try {
       if (editingMedId) {
-        await fetch(`http://localhost:8000/api/medications/${editingMedId}`, {
+        await fetch(`/api/medications/${editingMedId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer test_user_123' },
           body: JSON.stringify(newMed)
         });
       } else {
-        await fetch('http://localhost:8000/api/medications', {
+        await fetch('/api/medications', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer test_user_123' },
           body: JSON.stringify(newMed)
@@ -217,7 +217,7 @@ function App() {
   const handleDeleteMed = async (id) => {
     if (!window.confirm("Are you sure you want to delete this medication?")) return;
     try {
-      await fetch(`http://localhost:8000/api/medications/${id}`, {
+      await fetch(`/api/medications/${id}`, {
         method: 'DELETE',
         headers: { 'Authorization': 'Bearer test_user_123' }
       });
@@ -246,7 +246,7 @@ function App() {
     try {
       const formData = new FormData();
       formData.append('file', uploadFile);
-      const res = await fetch('http://localhost:8000/api/upload_bottle', {
+      const res = await fetch('/api/upload_bottle', {
         method: 'POST',
         headers: { 'Authorization': 'Bearer test_user_123' },
         body: formData
