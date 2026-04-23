@@ -1,5 +1,7 @@
 import logging
+import os
 
+os.makedirs('logs', exist_ok=True)
 logging.basicConfig(filename='logs/app.log', level=logging.INFO)
 
 # Comprehensive drug knowledge base for prototype
