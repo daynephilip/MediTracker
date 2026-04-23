@@ -64,7 +64,7 @@ A complete, mobile-responsive web application for medication safety, built with 
 4. **Auth Token Expiration**: `auth.py` rejects invalid tokens; frontend needs to prompt re-login.
 5. **Map Errors**: If geolocation is denied, a clear error message is shown with instructions.
 
-##GUARDRAILS & SAFETY
+## GUARDRAILS & SAFETY
 
   Input Sanitization (guardrails.py):
     - Strips <script> tags (XSS prevention)
